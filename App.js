@@ -147,9 +147,17 @@ const App = () => {
   ]);
 
   const deleteItem = id => {
-    setItems(prevItems => {
-      return prevItems.filter(item => item.id != id);
-    });
+    Alert.alert('Are you sure?', 'This cannot be undone.', [
+      {text: 'Cancel', style: 'cancel'},
+      {
+        text: 'Yes',
+        onPress: () => {
+          setItems(prevItems => {
+            return prevItems.filter(item => item.id != id);
+          });
+        },
+      },
+    ]);
   }; // end deleteItem
 
   const addItem = text => {
