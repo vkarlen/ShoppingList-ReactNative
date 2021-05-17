@@ -103,29 +103,55 @@
 
 // export default App;
 
-import React from 'react';
-import {View, Text, Section, Image, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Section, Image, StyleSheet, FlatList} from 'react-native';
+import {uuid} from 'uuidv4';
+
+import Header from './components/Header/Header';
+import ListItem from './components/ListItem/ListItem';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingTop: 60,
   },
-  text: {
-    color: 'darkslateblue',
-    fontSize: 30,
-  },
-  image: {width: 100, height: 100},
 });
 
 const App = () => {
+  const [items, setItems] = useState([
+    {
+      id: 1,
+      text: 'apple',
+    },
+    {
+      id: 2,
+      text: 'milk',
+    },
+    {
+      id: 3,
+      text: 'banana',
+    },
+    {
+      id: 4,
+      text: 'juice',
+    },
+  ]);
+
+  const deleteItem = id => {
+    setItems(prevItems => {
+      return prevItems.filter(item => item.id != id);
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Hello World</Text>
-      <Image
-        source={{uri: 'https://randomuser.me/api/portraits/men/1.jpg'}}
-        style={styles.image}
+      <Header title="Shopping List" />
+
+      <FlatList
+        data={items}
+        renderItem={({item}) => (
+          <ListItem item={item} deleteItem={deleteItem} />
+        )}
       />
     </View>
   );
