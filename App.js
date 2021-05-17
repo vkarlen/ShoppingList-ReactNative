@@ -104,7 +104,15 @@
 // export default App;
 
 import React, {useState} from 'react';
-import {View, Text, Section, Image, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  Section,
+  Image,
+  StyleSheet,
+  FlatList,
+  Alert,
+} from 'react-native';
 import {v4 as uuidv4} from 'uuid';
 
 import Header from './components/Header/Header';
@@ -142,12 +150,22 @@ const App = () => {
     setItems(prevItems => {
       return prevItems.filter(item => item.id != id);
     });
-  };
+  }; // end deleteItem
+
+  const addItem = text => {
+    if (!text) {
+      Alert.alert('Error', 'Please add an item', {text: 'Okay'});
+    } else {
+      setItems(prevItems => {
+        return [{id: uuidv4(), text}, ...prevItems];
+      });
+    }
+  }; // end addItem
 
   return (
     <View style={styles.container}>
       <Header title="Shopping List" />
-      <AddItem />
+      <AddItem addItem={addItem} />
 
       <FlatList
         data={items}

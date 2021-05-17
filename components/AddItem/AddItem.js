@@ -26,11 +26,26 @@ const styles = StyleSheet.create({
   },
 });
 
-const AddItem = () => {
+const AddItem = ({addItem}) => {
+  const [text, setText] = useState('');
+
+  const onChange = event => {
+    setText(event);
+  }; // end onChange
+
+  const handleAdd = () => {
+    addItem(text);
+    setText('');
+  }; // end handleAdd
+
   return (
     <View>
-      <TextInput placeholder="Add Item..." style={styles.input}></TextInput>
-      <TouchableOpacity style={styles.btn}>
+      <TextInput
+        placeholder="Add Item..."
+        style={styles.input}
+        onChangeText={onChange}
+      />
+      <TouchableOpacity style={styles.btn} onPress={handleAdd}>
         <Text style={styles.btnText}>
           <Icon name="plus" size={20} />
           Add Item
