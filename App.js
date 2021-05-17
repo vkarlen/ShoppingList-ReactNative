@@ -105,10 +105,11 @@
 
 import React, {useState} from 'react';
 import {View, Text, Section, Image, StyleSheet, FlatList} from 'react-native';
-import {uuid} from 'uuidv4';
+import {v4 as uuidv4} from 'uuid';
 
 import Header from './components/Header/Header';
 import ListItem from './components/ListItem/ListItem';
+import AddItem from './components/AddItem/AddItem';
 
 const styles = StyleSheet.create({
   container: {
@@ -120,20 +121,20 @@ const styles = StyleSheet.create({
 const App = () => {
   const [items, setItems] = useState([
     {
-      id: 1,
-      text: 'apple',
+      id: uuidv4(),
+      text: 'Apple',
     },
     {
-      id: 2,
-      text: 'milk',
+      id: uuidv4(),
+      text: 'Milk',
     },
     {
-      id: 3,
-      text: 'banana',
+      id: uuidv4(),
+      text: 'Banana',
     },
     {
-      id: 4,
-      text: 'juice',
+      id: uuidv4(),
+      text: 'Juice',
     },
   ]);
 
@@ -146,6 +147,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <Header title="Shopping List" />
+      <AddItem />
 
       <FlatList
         data={items}
